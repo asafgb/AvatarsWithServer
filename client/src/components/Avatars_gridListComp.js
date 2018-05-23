@@ -159,9 +159,11 @@ class GridListComp extends React.Component {
     //make sure to serialize your JSON body
     body: JSON.stringify({
     Mod:"save",
-    itemId:this.state.costumer
+    itemId:this.state.activeIndex
     })
   })
+  .then(res =>res.json())
+  .then(json => alert(json.message))
         break;
 
       case 'nic':
@@ -199,7 +201,8 @@ class GridListComp extends React.Component {
 
   
    getMoviesFromApiAsync() {
-     return fetch('https://facebook.github.io/react-native/movies.json')//')//'"https://feeds.citibikenyc.com/stations/stations.json"')
+     //return fetch('https://facebook.github.io/react-native/movies.json')//')//'"https://feeds.citibikenyc.com/stations/stations.json"')
+     return fetch('https://api.myjson.com/bins/t97a2')
     .then((response) => response.json())
     .then(json =>{
       //console.log(json)
@@ -220,10 +223,12 @@ class GridListComp extends React.Component {
     const { classes } = this.props;
     const usersList = this.state.costumer;
     let usersListBlock = '';
-    if(usersList.movies.length > 0)
-    usersListBlock = usersList.map( obj => {<div>obj</div>})
+    /*if(usersList.movies && usersList.movies.length >0)
+    usersList.movies.map( obj => 
+      {usersListBlock += "<div>"+obj.title+"</div>"}
+    )
     else
-    usersListBlock="nope"
+    usersListBlock="nope"*/
     return (
     <div className={classes.root} id="AllImages">
     
@@ -287,7 +292,7 @@ class GridListComp extends React.Component {
       </Button> 
       {/* </form> */}
 
-      {usersListBlock}
+      {/* {usersListBlock} */}
     </div>
     );
   }

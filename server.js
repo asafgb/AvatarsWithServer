@@ -1,6 +1,8 @@
 //import expressKerberos from 'express-kerberos';
+//import fetch from 'node-fetch';
+const fetch = require('node-fetch');
 const  express =require("express");
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 
 //var expressKerberos = require('express-kerberos');
 const app = express();
@@ -29,7 +31,26 @@ app.get('/api/customers',(req, res) =>{
     res.json(customers);
 })
 
-app.post('/api/Check',jsonParser,function (req, res){//,expressKerberos()
+
+
+app.post('/api/Check',jsonParser, async function (req, res){//,expressKerberos()
+
+    switch(req.body.Mod)
+    {
+        case "save":
+        if(req.body.itemId> -1)
+        {
+            var list =await getMoviesFromApiAsync();
+            var x =2;
+        }
+        else
+        {
+            res.send({error:true,message:'No such as that Id'});
+            res.end()
+            break;
+        }
+    }
+    
   /*  res.setHeader('Content-Type', 'text/plain')
     res.write('you posted:\n')
     res.end(JSON.stringify(req.body, null, 2))
@@ -43,7 +64,7 @@ app.post('/api/Check',jsonParser,function (req, res){//,expressKerberos()
 
     
 
-    res.json(customers);
+   // res.json(customers);
 })
 
 
@@ -53,3 +74,16 @@ app.post('/api/Check',jsonParser,function (req, res){//,expressKerberos()
 */
 
 app.listen(port, ()=> console.log(`start on ${port}`))
+
+ function getMoviesFromApiAsync() {
+    return fetch('https://api.myjson.com/bins/t97a2')//')//'"https://feeds.citibikenyc.com/stations/stations.json"')
+   .then((response) => response.json())
+   .then(json =>{
+     //console.log(json)
+    return json;
+   })
+   .catch((error) => { 
+     console.error(error);
+   });
+   ;
+}
