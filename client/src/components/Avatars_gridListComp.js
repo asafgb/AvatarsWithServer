@@ -175,7 +175,6 @@ class GridListComp extends React.Component {
         break;
     }
     //fetch('/api/Check')
-    //fetch('/api/Check')
     //.then(res=>res.json()
     //.then(costumer => this.setState({costumer}, ()=> console.log('loaded',costumer)));
   }
@@ -223,50 +222,27 @@ class GridListComp extends React.Component {
     const { classes } = this.props;
     const usersList = this.state.costumer;
     let usersListBlock = '';
-    /*if(usersList.movies && usersList.movies.length >0)
-    usersList.movies.map( obj => 
-      {usersListBlock += "<div>"+obj.title+"</div>"}
-    )
-    else
-    usersListBlock="nope"*/
+    
     return (
     <div className={classes.root} id="AllImages">
     
       <GridList cols={5} spacing={10}  cellHeight={300} style={{ margin: '0px' }}>
-        {testsplist.map((tile,i) => (
-          /*
-          //Option A:
-          <GridListTile key={i} index={i} alt={tile.category} onClick={() => this.handleClick(i) } className={classes.button}  >
-          <ButtonBase
-          focusRipple
-          key={i}
-          className={classes.image}
-          focusVisibleClassName={classes.focusVisible}
-          style={{
-            width: '300px',
-            height: '300px'
-          }}
-        >
-          <span
-            className={classes.imageSrc}
-            style={{
-              backgroundImage: `url(${tile.path})`,
-            }}
-          />
-          <span className={classes.imageBackdrop} />
-        </ButtonBase>
-        </GridListTile>
-          */
-          
-
-           
-          //Option B
+        {
+        /*  testsplist.map((tile,i) => (
           <GridListTile key={i} index={i} alt={tile.category} onClick={() => this.handleClick(i) } className={classNames(classes.button, this.state.activeIndex===i && classes.PicSelected)}  >
             <img src={tile.path.includes("http") ? tile.path : process.env.PUBLIC_URL + tile.path} className={classes.images}  />
           </GridListTile>
           
           
-        ))}
+        ))*/
+    
+        usersList && usersList.length >0 && usersList.map( obj => (
+        //usersListBlock += //"<div>"+obj.title+"</div>"
+        <GridListTile key={obj.id} index={obj.id} alt={obj.category} onClick={() => this.handleClick(obj.id) } className={classNames(classes.button, this.state.activeIndex===obj.id && classes.PicSelected)}  >
+            <img src={obj.path.includes("http") ? obj.path : process.env.PUBLIC_URL + obj.path} className={classes.images}  />
+        </GridListTile>
+      ))
+        }
       </GridList>
       {/* <form method="post" action="/api/Check">
       <input type="button"> */}
