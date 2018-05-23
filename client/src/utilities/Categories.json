@@ -1,0 +1,29 @@
+[
+
+    {
+        "key":1,
+        "category":"Cats",
+        "path":"/images/Categories/Cat.jpg"
+    },
+
+    {
+        "key":2,
+        "category":"Dogs",
+        "path":"/images/Categories/Dog.jpg"
+    },
+
+    {
+        "key":3,
+        "category":"People",
+        "path":"/images/Categories/People.png"
+        
+    },
+    
+    {
+        "key":4,
+        "category":"All",
+        "path":"/images/Categories/People1.png"
+        
+    }
+
+]
