@@ -2,7 +2,7 @@
 
 
 //import fetch from 'node-fetch';
-var {default: expressKerberos} = require('express-kerberos');
+//var {default: expressKerberos} = require('express-kerberos');
 const fetch = require('node-fetch');
 const  express =require("express");
 var bodyParser = require('body-parser');
@@ -49,13 +49,15 @@ app.get('/api/customers',(req, res) =>{
 
 
 app.post('/api/Save',jsonParser, async function (req, res){//,expressKerberos()
+   /*
+   צריך לעשות
     const auth = req.get('authorization');
     if (!auth) {
         return res.status(401).set('WWW-Authenticate', 'Negotiate').end();
       }
       req.auth = req.auth || {};
       req.auth.token = auth.substring('Negotiate '.length);
-
+    */
     switch(req.body.Mod)
     {
         case "save":
@@ -95,31 +97,14 @@ app.post('/api/Save',jsonParser, async function (req, res){//,expressKerberos()
                     FirstColorIndex=Math.floor(Math.random() * colorArray.length);
                   }
             
-                  var c = document.getElementById("myCanvas"+index);
-                  var ctx = c.getContext("2d");
-            
-                  {
-                    //console.log(c)
-                    /*var gradient = ctx.createLinearGradient(0, 0, c.width, 0);
-                    gradient.addColorStop("0", "magenta");
-                    gradient.addColorStop("0.5", "blue");
-                    gradient.addColorStop("1.0", "red");
-            
-                    // Fill with gradient
-                    ctx.fillStyle = gradient;*/
-                  }
+                  //var c = document.getElementById("myCanvas"+index);
+                  //var ctx = c.getContext("2d");
             
                   var widtharc= 170;
                   var higharc= 170;
                   var toMiddle =20
                   var radius=90
-                  // ctx.fillStyle = colorArray[FirstColorIndex];
-                  // ctx.arc(widtharc/2 +toMiddle, higharc-toMiddle, radius, 0, 1 * Math.PI);
-                  // ctx.fill();
                   
-                  // ctx.fillStyle = colorArray[SecondColorIndex];
-                  // ctx.arc(widtharc/2 +toMiddle, higharc-toMiddle, radius, Math.PI, 2 * Math.PI);
-                  // ctx.fill();
                   ctx.beginPath();
                   ctx.fillStyle = colorArray[FirstColorIndex];
                   ctx.arc(widtharc/2 +toMiddle, higharc-toMiddle, radius, -Math.PI/2, 1 * Math.PI/2);
@@ -135,6 +120,17 @@ app.post('/api/Save',jsonParser, async function (req, res){//,expressKerberos()
                   ctx.font = "90px Arial";
                   ctx.fillText("א.ש", widtharc, higharc);
 
+                  var fs = require('fs')
+                , out = fs.createWriteStream('./text.png')
+                , stream = canvas.pngStream();
+                            
+                stream.on('data', function(chunk){
+                    out.write(chunk);
+                });
+
+                stream.on('end', function(){
+                    console.log('saved png');
+                });
             break;
     }
     
