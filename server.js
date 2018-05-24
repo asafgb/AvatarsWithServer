@@ -102,7 +102,12 @@ requests.get(picurl)
     .on('close',()=>{
         fs.readFile('doodle.png', (err, data)=>{
             let base64Image = new Buffer(data, 'binary').toString('base64');
-            var m="3"
+            fs.unlink('doodle.png', function(error) {
+                if (error) {
+                    throw error;
+                }
+                console.log('Deleted doodle.png');
+            });
         })
     })
       .pipe(fs.createWriteStream('doodle.png'))
