@@ -150,7 +150,7 @@ class GridListComp extends React.Component {
     switch(index)
     {
       case 'save':
-      fetch("/api/Check", {
+      fetch("/api/Save", {
       method: "post",
       headers: {
         'Accept': 'application/json',
@@ -179,6 +179,8 @@ class GridListComp extends React.Component {
     //.then(res=>res.json()
     //.then(costumer => this.setState({costumer}, ()=> console.log('loaded',costumer)));
   }
+
+  
   async componentWillMount()
   {
     let  json =  await this.getMoviesFromApiAsync();
@@ -188,20 +190,10 @@ class GridListComp extends React.Component {
     //console.log(this.state.costumer); 
   }
   
-   componentDidMount()
-  {
-    //console.log(this.state.costumer); 
-    //let json = this.getMoviesFromApiAsync();
-    //this.state.costumer = this.getMoviesFromApiAsync();
-   //console.log(this.state.costumer);
-    //this.setState({ costumer: json })
-    //this.setState({costumer:this.getMoviesFromApiAsync() )
-    //console.log(json);  
-  }
+  
 
   
    getMoviesFromApiAsync() {
-     //return fetch('https://facebook.github.io/react-native/movies.json')//')//'"https://feeds.citibikenyc.com/stations/stations.json"')
      return fetch('https://api.myjson.com/bins/t97a2')
     .then((response) => response.json())
     .then(json =>{
