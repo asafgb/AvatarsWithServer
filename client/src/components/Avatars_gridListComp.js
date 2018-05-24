@@ -7,6 +7,7 @@ import testsplist from '../utilities/TestSPListOfPictures.json'
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Save from '@material-ui/icons/Save';
 import Button from '@material-ui/core/Button';
+import CircularProgress from './Avatars_CircularIndeterminate'
 const styles = theme => ({
   root: {
     //display: 'flex',
@@ -225,7 +226,12 @@ class GridListComp extends React.Component {
     
     return (
     <div className={classes.root} id="AllImages">
-    
+     {
+       (!(usersList && usersList.length >0))  &&(
+       <CircularProgress  />
+       )
+     }
+     
       <GridList cols={5} spacing={10}  cellHeight={300} style={{ margin: '0px' }}>
         {
         /*  testsplist.map((tile,i) => (
