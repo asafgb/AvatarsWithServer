@@ -70,10 +70,72 @@ app.post('/api/Save',jsonParser, async function (req, res){//,expressKerberos()
         }
         else
         {
-            res.send({error:true,message:'No such as that Id'});
-            res.end()
-            break;
+            res.send({error:true,message:'No such as that Id'}).end();
+            
         }
+        break;
+        case "Name":
+                var Canvas = require('canvas')
+                , Image = Canvas.Image
+                , canvas = new Canvas(200, 200)
+                , ctx = canvas.getContext('2d');
+
+                  var colorArray = ["#cc66ff","#00ff00","#0000ff","#006600","#ff3300","#663300","#ff8c1a"];//"red", "#0000cc","#00ffcc"
+                  var FirstColorIndex=Math.floor(Math.random() * colorArray.length);
+                  var SecondColorIndex=Math.floor(Math.random() * colorArray.length);
+                  var ThreeColorIndex=Math.floor(Math.random() * colorArray.length);
+            
+                  while(FirstColorIndex == SecondColorIndex || SecondColorIndex == ThreeColorIndex)
+                  {
+                     SecondColorIndex=Math.floor(Math.random() * colorArray.length);
+                  }
+            
+                  while(FirstColorIndex == SecondColorIndex || FirstColorIndex == ThreeColorIndex)
+                  {
+                    FirstColorIndex=Math.floor(Math.random() * colorArray.length);
+                  }
+            
+                  var c = document.getElementById("myCanvas"+index);
+                  var ctx = c.getContext("2d");
+            
+                  {
+                    //console.log(c)
+                    /*var gradient = ctx.createLinearGradient(0, 0, c.width, 0);
+                    gradient.addColorStop("0", "magenta");
+                    gradient.addColorStop("0.5", "blue");
+                    gradient.addColorStop("1.0", "red");
+            
+                    // Fill with gradient
+                    ctx.fillStyle = gradient;*/
+                  }
+            
+                  var widtharc= 170;
+                  var higharc= 170;
+                  var toMiddle =20
+                  var radius=90
+                  // ctx.fillStyle = colorArray[FirstColorIndex];
+                  // ctx.arc(widtharc/2 +toMiddle, higharc-toMiddle, radius, 0, 1 * Math.PI);
+                  // ctx.fill();
+                  
+                  // ctx.fillStyle = colorArray[SecondColorIndex];
+                  // ctx.arc(widtharc/2 +toMiddle, higharc-toMiddle, radius, Math.PI, 2 * Math.PI);
+                  // ctx.fill();
+                  ctx.beginPath();
+                  ctx.fillStyle = colorArray[FirstColorIndex];
+                  ctx.arc(widtharc/2 +toMiddle, higharc-toMiddle, radius, -Math.PI/2, 1 * Math.PI/2);
+                  ctx.fill();
+            
+                  ctx.beginPath();
+                  ctx.fillStyle = colorArray[SecondColorIndex];
+                  ctx.arc(widtharc/2 +toMiddle, higharc-toMiddle, radius, Math.PI/2,  Math.PI+Math.PI/2);
+                  ctx.fill();
+            
+            
+                  ctx.fillStyle = colorArray[ThreeColorIndex];
+                  ctx.font = "90px Arial";
+                  ctx.fillText("א.ש", widtharc, higharc);
+
+            break;
     }
     
 
