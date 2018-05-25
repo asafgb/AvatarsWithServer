@@ -61,7 +61,7 @@ app.post('/api/Save',jsonParser, async function (req, res){//,expressKerberos()
         }
         break;
         case "Name":
-                var canvas = new Canvas(200, 300, 'svg');
+              /*  var canvas = new Canvas(200, 300, 'svg');
                 ctx = canvas.getContext('2d');
                 // Use the normal primitives.
 
@@ -100,7 +100,7 @@ app.post('/api/Save',jsonParser, async function (req, res){//,expressKerberos()
                 res.send({error:false,message:canvas.toBuffer().toString('base64')}).end();
 
                 fs.writeFile('out.svg', canvas.toBuffer(),(call)=>{
-                });
+                });*/
             break;
     }
     
