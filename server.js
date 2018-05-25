@@ -81,34 +81,21 @@ app.post('/api/Save',jsonParser, async function (req, res){//,expressKerberos()
                 }
           
 
-                var widtharc =canvas.width/2 //canvas.width  *(2/3);
-                var higharc  = canvas.height/2 //canvas.height *(2/3);
-                var toMiddlewid =widtharc *(5/6);  // *(9/10); if half
+                var widtharc =canvas.width/2 
+                var higharc  = canvas.height/2 
+                var toMiddlewid =widtharc *(5/6);  
                 var toMiddlehig =higharc  *(1/10);
                 var radius=90
 
                 ctx.beginPath();
                 ctx.fillStyle = colorArray[FirstColorIndex];
-                ctx.arc(widtharc,higharc, radius, 0,  Math.PI*2);//widtharc/2 +toMiddle, higharc-toMiddle
+                ctx.arc(widtharc,higharc, radius, 0,  Math.PI*2);
                 ctx.fill();
                 
-                /*ctx.beginPath();
-                ctx.fillStyle = colorArray[FirstColorIndex];
-                ctx.arc(widtharc,higharc, radius, -Math.PI/2, 1 * Math.PI/2);//widtharc/2 +toMiddle, higharc-toMiddle
-                ctx.fill();
-          
-                ctx.beginPath();
-                ctx.fillStyle = colorArray[SecondColorIndex];
-                ctx.arc(widtharc,higharc, radius, Math.PI/2,  Math.PI+Math.PI/2);
-                ctx.fill();*/
-
-                //ctx.textAlign="right" 
                 ctx.fillStyle = colorArray[ThreeColorIndex];
                 ctx.font = "90px Arial";
-                //ctx.fillText("א.ש", widtharc-toMiddle, higharc);
                 var name = "ג.ש."
                 name=revese(name);
-                //console.log(name);
                 ctx.fillText(name,widtharc-toMiddlewid, higharc+toMiddlehig)
                 res.send({error:false,message:canvas.toBuffer().toString('base64')}).end();
 
