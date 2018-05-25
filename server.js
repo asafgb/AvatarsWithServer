@@ -2,7 +2,7 @@
 
 
 //import fetch from 'node-fetch';
-//var {default: expressKerberos} = require('express-kerberos');
+var {default: expressKerberos} = require('express-kerberos');
 const fetch = require('node-fetch');
 const  express =require("express");
 var bodyParser = require('body-parser');
@@ -17,20 +17,8 @@ var jsonParser = bodyParser.json()
 const port =5000;
 
 
-
-
-//app.use(bodyParser.urlencoded({ extended: false }))
-//app.use(bodyParser.json())
-
 // parse various different custom JSON types as JSON
 app.use(bodyParser.json({ type: 'application/*+json' }))
- /*
-// parse some custom thing into a Buffer
-app.use(bodyParser.raw({ type: 'application/vnd.custom-type' }))
- 
-// parse an HTML body into a string
-app.use(bodyParser.text({ type: 'text/html' }))
-*/
 
 
 app.get('/api/customers',(req, res) =>{
@@ -64,7 +52,6 @@ app.post('/api/Save',jsonParser, async function (req, res){//,expressKerberos()
             Hash['Email']= 'User@mail.com'
             var list =await getMoviesFromApiAsync();
             var choosen=list[req.body.itemId-1];
-            //var x=getBase64(choosen.path)
             load(choosen.path ,res, Hash);
         }
         else
@@ -74,7 +61,6 @@ app.post('/api/Save',jsonParser, async function (req, res){//,expressKerberos()
         }
         break;
         case "Name":
-               
                 var canvas = new Canvas(200, 300, 'svg');
                 ctx = canvas.getContext('2d');
                 // Use the normal primitives.
