@@ -31,9 +31,7 @@ app.get('/api/customers',(req, res) =>{
     res.json(customers);
 })
 
-
-
-app.post('/api/Save',jsonParser,expressKerberos(), async function (req, res){//,expressKerberos()
+app.post('/api/Save',jsonParser, async function (req, res){//,
    /*
    צריך לעשות
     const auth = req.get('authorization');
@@ -43,10 +41,8 @@ app.post('/api/Save',jsonParser,expressKerberos(), async function (req, res){//,
       req.auth = req.auth || {};
       req.auth.token = auth.substring('Negotiate '.length);
     */
-    console.log(`Hello ${req.auth.username}!`);
     switch(req.body.Mod)
     {
-        
         case "save":
         if(req.body.itemId> -1)
         {
@@ -145,7 +141,7 @@ function load(picurl ,res, Hash)
               console.log('Deleted doodle.png');
           });
           Hash['Content'] = base64Image;
-          exchangeWebService(Hash)
+          //exchangeWebService(Hash)
           //return base64Image;
       })
   })
