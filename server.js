@@ -7,20 +7,17 @@ const fetch = require('node-fetch');
 const  express =require("express");
 var bodyParser = require('body-parser');
 var requests = require('request');
-var fs = require('fs')
+var fs = require('fs');
+var path = require('path');
 var base64Img = require('base64-img');
 var ews = require('ews-javascript-api');
-//var ews = require('ews-javascript-api');
-//var FileReader = require('filereader')
-/*var http = require('http'),
-    fs = require('fs'),
-    url = require('url');*/
-
-
-//var expressKerberos = require('express-kerberos');
+var Canvas = require('canvas');
 const app = express();
 var jsonParser = bodyParser.json()
 const port =5000;
+
+
+
 
 //app.use(bodyParser.urlencoded({ extended: false }))
 //app.use(bodyParser.json())
@@ -77,9 +74,9 @@ app.post('/api/Save',jsonParser, async function (req, res){//,expressKerberos()
         }
         break;
         case "Name":
-                var Canvas = require('canvas')
+                /*var Canvas = require('canvas')
                 , Image = Canvas.Image
-                , canvas = new Canvas(200, 200)
+                , canvas = new Canvas(210, 300)
                 , ctx = canvas.getContext('2d');
 
                   var colorArray = ["#cc66ff","#00ff00","#0000ff","#006600","#ff3300","#663300","#ff8c1a"];//"red", "#0000cc","#00ffcc"
@@ -97,12 +94,10 @@ app.post('/api/Save',jsonParser, async function (req, res){//,expressKerberos()
                     FirstColorIndex=Math.floor(Math.random() * colorArray.length);
                   }
             
-                  //var c = document.getElementById("myCanvas"+index);
-                  //var ctx = c.getContext("2d");
-            
+
                   var widtharc= 170;
                   var higharc= 170;
-                  var toMiddle =20
+                  var toMiddle =0
                   var radius=90
                   
                   ctx.beginPath();
@@ -129,7 +124,62 @@ app.post('/api/Save',jsonParser, async function (req, res){//,expressKerberos()
                 });
 
                 stream.on('end', function(){
-                    console.log('saved png');
+                    //console.log('saved png');
+                    res.send({error:false,message:'Your name picure'}).end();
+                });*/
+               // res.send({error:false,message:'Your name picure'}).end();
+                var canvas = new Canvas(200, 300, 'svg');
+                ctx = canvas.getContext('2d');
+                // Use the normal primitives.
+
+                var colorArray = ["#cc66ff","#00ff00","#0000ff","#006600","#ff3300","#663300","#ff8c1a"];//"red", "#0000cc","#00ffcc"
+                var FirstColorIndex=Math.floor(Math.random() * colorArray.length);
+                var SecondColorIndex=Math.floor(Math.random() * colorArray.length);
+                var ThreeColorIndex=Math.floor(Math.random() * colorArray.length);
+          
+                while(FirstColorIndex == SecondColorIndex || SecondColorIndex == ThreeColorIndex)
+                {
+                   SecondColorIndex=Math.floor(Math.random() * colorArray.length);
+                }
+          
+                while(FirstColorIndex == SecondColorIndex || FirstColorIndex == ThreeColorIndex)
+                {
+                  FirstColorIndex=Math.floor(Math.random() * colorArray.length);
+                }
+          
+
+                var widtharc =canvas.width/2 //canvas.width  *(2/3);
+                var higharc  = canvas.height/2 //canvas.height *(2/3);
+                var toMiddlewid =widtharc *(5/6);  // *(9/10); if half
+                var toMiddlehig =higharc  *(1/10);
+                var radius=90
+
+                ctx.beginPath();
+                ctx.fillStyle = colorArray[FirstColorIndex];
+                ctx.arc(widtharc,higharc, radius, 0,  Math.PI*2);//widtharc/2 +toMiddle, higharc-toMiddle
+                ctx.fill();
+                
+                /*ctx.beginPath();
+                ctx.fillStyle = colorArray[FirstColorIndex];
+                ctx.arc(widtharc,higharc, radius, -Math.PI/2, 1 * Math.PI/2);//widtharc/2 +toMiddle, higharc-toMiddle
+                ctx.fill();
+          
+                ctx.beginPath();
+                ctx.fillStyle = colorArray[SecondColorIndex];
+                ctx.arc(widtharc,higharc, radius, Math.PI/2,  Math.PI+Math.PI/2);
+                ctx.fill();*/
+
+                //ctx.textAlign="right" 
+                ctx.fillStyle = colorArray[ThreeColorIndex];
+                ctx.font = "90px Arial";
+                //ctx.fillText("א.ש", widtharc-toMiddle, higharc);
+                var name = "ג.ש."
+                name=revese(name);
+                //console.log(name);
+                ctx.fillText(name,widtharc-toMiddlewid, higharc+toMiddlehig)
+                res.send({error:false,message:canvas.toBuffer().toString('base64')}).end();
+
+                fs.writeFile('out.svg', canvas.toBuffer(),(call)=>{
                 });
             break;
     }
@@ -138,6 +188,16 @@ app.post('/api/Save',jsonParser, async function (req, res){//,expressKerberos()
    // res.json(customers);
 })
 
+function revese(str)
+{
+    var text="";
+    for(var i = 0 ; i <str.length; i++)
+    {
+        text+=str[str.length-1-i];
+    }
+    console.log(text);
+    return text;
+}
 
 /*app.get('/', expressKerberos(), (req, res) => {
     res.send(`Hello ${req.auth.username}!`);
