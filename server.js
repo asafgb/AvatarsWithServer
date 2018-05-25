@@ -15,6 +15,7 @@ var Canvas = require('canvas');
 const app = express();
 var jsonParser = bodyParser.json()
 const port =5000;
+const image2base64 = require('image-to-base64');
 
 
 // parse various different custom JSON types as JSON
@@ -129,7 +130,7 @@ app.listen(port, ()=> console.log(`start on ${port}`))
 function load(picurl ,res, Hash)
 {
     //להוסיף מספר random
-  requests.get(picurl)
+ /* requests.get(picurl)
   .on('end',()=>{
       fs.readFile('doodle.png', (err, data)=>{
           let base64Image = new Buffer(data, 'binary').toString('base64');
@@ -145,8 +146,22 @@ function load(picurl ,res, Hash)
           //return base64Image;
       })
   })
-    .pipe(fs.createWriteStream('doodle.png'))
-
+   .pipe(fs.createWriteStream('doodle.png'))
+   */
+  image2base64(picurl)
+  .then(
+      (response) => {
+        res.send({error:false,message:'Your picture Is upload'});
+        Hash['Content'] = response;
+       //exchangeWebService(Hash)
+          //console.log(response); //cGF0aC90by9maWxlLmpwZw==
+      }
+  )
+  .catch(
+      (error) => {
+          console.log(error); //Exepection error....
+      }
+  )
   
 }
 
