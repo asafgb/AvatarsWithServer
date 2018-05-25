@@ -11,7 +11,7 @@ var fs = require('fs');
 var path = require('path');
 var base64Img = require('base64-img');
 var ews = require('ews-javascript-api');
-//var Canvas = require('canvas');
+var Canvas = require('canvas');
 const app = express();
 var jsonParser = bodyParser.json()
 const port =5000;
@@ -33,7 +33,7 @@ app.get('/api/customers',(req, res) =>{
 
 
 
-app.post('/api/Save',jsonParser, async function (req, res){//,expressKerberos()
+app.post('/api/Save',jsonParser,expressKerberos(), async function (req, res){//,expressKerberos()
    /*
    צריך לעשות
     const auth = req.get('authorization');
@@ -43,13 +43,17 @@ app.post('/api/Save',jsonParser, async function (req, res){//,expressKerberos()
       req.auth = req.auth || {};
       req.auth.token = auth.substring('Negotiate '.length);
     */
+    console.log(`Hello ${req.auth.username}!`);
     switch(req.body.Mod)
     {
+        
         case "save":
         if(req.body.itemId> -1)
         {
             var Hash = {}
             Hash['Email']= 'User@mail.com'
+            Hash['TypeRequested']= 'UserPhoto'
+            
             var list =await getMoviesFromApiAsync();
             var choosen=list[req.body.itemId-1];
             load(choosen.path ,res, Hash);
@@ -61,7 +65,7 @@ app.post('/api/Save',jsonParser, async function (req, res){//,expressKerberos()
         }
         break;
         case "Name":
-              /*  var canvas = new Canvas(200, 300, 'svg');
+                var canvas = new Canvas(200, 300, 'svg');
                 ctx = canvas.getContext('2d');
                 // Use the normal primitives.
 
@@ -100,7 +104,7 @@ app.post('/api/Save',jsonParser, async function (req, res){//,expressKerberos()
                 res.send({error:false,message:canvas.toBuffer().toString('base64')}).end();
 
                 fs.writeFile('out.svg', canvas.toBuffer(),(call)=>{
-                });*/
+                });
             break;
     }
     
@@ -130,7 +134,7 @@ function load(picurl ,res, Hash)
 {
     //להוסיף מספר random
   requests.get(picurl)
-  .on('close',()=>{
+  .on('end',()=>{
       fs.readFile('doodle.png', (err, data)=>{
           let base64Image = new Buffer(data, 'binary').toString('base64');
           res.send({error:false,message:'Your picture Is upload'});
@@ -140,7 +144,6 @@ function load(picurl ,res, Hash)
               }
               console.log('Deleted doodle.png');
           });
-          Hash['TypeRequested']= 'UserPhoto'
           Hash['Content'] = base64Image;
           exchangeWebService(Hash)
           //return base64Image;
