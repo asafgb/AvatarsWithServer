@@ -74,60 +74,7 @@ app.post('/api/Save',jsonParser, async function (req, res){//,expressKerberos()
         }
         break;
         case "Name":
-                /*var Canvas = require('canvas')
-                , Image = Canvas.Image
-                , canvas = new Canvas(210, 300)
-                , ctx = canvas.getContext('2d');
-
-                  var colorArray = ["#cc66ff","#00ff00","#0000ff","#006600","#ff3300","#663300","#ff8c1a"];//"red", "#0000cc","#00ffcc"
-                  var FirstColorIndex=Math.floor(Math.random() * colorArray.length);
-                  var SecondColorIndex=Math.floor(Math.random() * colorArray.length);
-                  var ThreeColorIndex=Math.floor(Math.random() * colorArray.length);
-            
-                  while(FirstColorIndex == SecondColorIndex || SecondColorIndex == ThreeColorIndex)
-                  {
-                     SecondColorIndex=Math.floor(Math.random() * colorArray.length);
-                  }
-            
-                  while(FirstColorIndex == SecondColorIndex || FirstColorIndex == ThreeColorIndex)
-                  {
-                    FirstColorIndex=Math.floor(Math.random() * colorArray.length);
-                  }
-            
-
-                  var widtharc= 170;
-                  var higharc= 170;
-                  var toMiddle =0
-                  var radius=90
-                  
-                  ctx.beginPath();
-                  ctx.fillStyle = colorArray[FirstColorIndex];
-                  ctx.arc(widtharc/2 +toMiddle, higharc-toMiddle, radius, -Math.PI/2, 1 * Math.PI/2);
-                  ctx.fill();
-            
-                  ctx.beginPath();
-                  ctx.fillStyle = colorArray[SecondColorIndex];
-                  ctx.arc(widtharc/2 +toMiddle, higharc-toMiddle, radius, Math.PI/2,  Math.PI+Math.PI/2);
-                  ctx.fill();
-            
-            
-                  ctx.fillStyle = colorArray[ThreeColorIndex];
-                  ctx.font = "90px Arial";
-                  ctx.fillText("א.ש", widtharc, higharc);
-
-                  var fs = require('fs')
-                , out = fs.createWriteStream('./text.png')
-                , stream = canvas.pngStream();
-                            
-                stream.on('data', function(chunk){
-                    out.write(chunk);
-                });
-
-                stream.on('end', function(){
-                    //console.log('saved png');
-                    res.send({error:false,message:'Your name picure'}).end();
-                });*/
-               // res.send({error:false,message:'Your name picure'}).end();
+               
                 var canvas = new Canvas(200, 300, 'svg');
                 ctx = canvas.getContext('2d');
                 // Use the normal primitives.
