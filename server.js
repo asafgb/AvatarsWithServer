@@ -2,9 +2,13 @@
 
 
 //import fetch from 'node-fetch';
-var {default: expressKerberos} = require('express-kerberos');
+const image2base64 = require('image-to-base64');
+const AD = require('ad');
 const fetch = require('node-fetch');
 const  express =require("express");
+const app = express();
+const port =5000;
+var {default: expressKerberos} = require('express-kerberos');
 var bodyParser = require('body-parser');
 var requests = require('request');
 var fs = require('fs');
@@ -12,10 +16,8 @@ var path = require('path');
 var base64Img = require('base64-img');
 var ews = require('ews-javascript-api');
 var Canvas = require('canvas');
-const app = express();
 var jsonParser = bodyParser.json()
-const port =5000;
-const image2base64 = require('image-to-base64');
+
 
 
 // parse various different custom JSON types as JSON
@@ -103,6 +105,15 @@ app.post('/api/Save',jsonParser, async function (req, res){//,
                 fs.writeFile('out.svg', canvas.toBuffer(),(call)=>{
                 });
             break;
+        case "Def":
+           // var ad = new AD();
+           // await ad.user('jsmith').get();
+            break;
+
+        default:
+        res.send({error:true,message:"Error code"}).end();
+            break;
+
     }
     
 

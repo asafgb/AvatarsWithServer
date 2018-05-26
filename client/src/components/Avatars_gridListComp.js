@@ -185,7 +185,20 @@ class GridListComp extends React.Component {
         break;
 
       case 'default':
-        alert("save3")
+      fetch("/api/Save", {
+        method: "post",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+  
+      //make sure to serialize your JSON body
+      body: JSON.stringify({
+      Mod:"Def",
+      })
+    })
+    .then(res =>res.json())
+    .then(json => alert(json.message))
         break;
     }
     //fetch('/api/Check')
